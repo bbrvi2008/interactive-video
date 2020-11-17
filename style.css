@@ -8150,6 +8150,7 @@ div.surveyBar, .ms-surveyHBar {
 /* /PRINT */
 
 .interactive-video__video {
+  display: block;
   width: 100%; }
 
 .interactive-video__answer-list {
