@@ -1,0 +1,30 @@
+.interactive-video {
+
+  &__video {
+    width: 100%;
+  }
+
+  &__answer-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+
+    @media (min-width: 768px) {
+      flex-wrap: nowrap;
+    }
+  }
+
+  &__answer-item {
+    flex: 0 0 100%;
+    margin-top: 18px;
+
+    @media (min-width: 768px) {
+      flex-shrink: 1;
+
+      &:nth-last-child(n + 2) {
+        margin-right: 30px;
+      }
+    }
+  }
+}
