@@ -1,6 +1,8 @@
 .interactive-video {
+  min-width: 320px;
 
   &__video {
+    display: block;
     width: 100%;
   }
 
@@ -9,22 +11,107 @@
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-between;
+    margin-top: 18px;
 
     @media (min-width: 768px) {
       flex-wrap: nowrap;
+    }
+
+    @media (orientation: landscape), (min-width: 768px) {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 18px;
     }
   }
 
   &__answer-item {
     flex: 0 0 100%;
-    margin-top: 18px;
+
+    &:nth-child(n + 2) {
+      margin-top: 18px;
+    }
 
     @media (min-width: 768px) {
       flex-shrink: 1;
 
+      &:nth-child(n + 2) {
+        margin-top: 0;
+      }
+
       &:nth-last-child(n + 2) {
         margin-right: 30px;
       }
+    }
+  }
+
+  &__inner {
+      position: relative;
+      background: rgba(30, 30, 30, 0.6);
+      box-shadow: 2px 2px 10px rgba(30, 30, 30, 0.6);
+  }
+
+  &__btn-play {
+    position: absolute;
+    top: 50%;
+    bottom: 0;
+    left: 50%;
+    right: 0;
+    transform: translate(-50%, -50%);
+    font-size: 100px;
+    color: #ccc;
+    background: rgba(30, 30, 30, 0.6);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 9;
+  }
+
+  &__btn-close {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 48px;
+    color: #ccc;
+    background: rgba(30, 30, 30, 0.6);
+    cursor: pointer;
+    z-index: 9;
+  }
+
+  &--fullscreen {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(59, 66, 86, .97);
+    transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+    .interactive-video__answer-list {
+      @media (max-width: 767px) {
+        position: absolute;
+        right: 0;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-top: 0;
+        padding: 18px;
+      }
+    }
+
+    .interactive-video__btn-play {
+      display: none;
+    }
+
+    .interactive-video__btn-close {
+      display: block;
     }
   }
 }

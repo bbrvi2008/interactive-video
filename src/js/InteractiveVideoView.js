@@ -1,13 +1,37 @@
+function toggleFullScreen(isFullscreen) {
+  if (!isFullscreen && !document.fullscreenElement &&    // alternative standard method
+      !document.mozFullScreenElement && !document.webkitFullscreenElement) {  // current working methods
+      if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen();
+      } else if (document.documentElement.mozRequestFullScreen) {
+          document.documentElement.mozRequestFullScreen();
+      } else if (document.documentElement.webkitRequestFullscreen) {
+          document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+      }
+  } else {
+      if (document.cancelFullScreen) {
+          document.cancelFullScreen();
+      } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+      } else if (document.webkitCancelFullScreen) {
+          document.webkitCancelFullScreen();
+      }
+  }
+}
+
 export default class InteractiveVideoView {
-  constructor($container, {question, answers}, options) {
+  constructor($container, {question, answers, isFullscreen}, options) {
     this.clear($container);
 
     this.video = this.createVideo(question.videoLink, options);
     this.answers = this.createAnswers(answers, options);
     
-    let view = this.createView(this.video, this.answers);
+    this.view = this.createView(this.video, this.answers, {
+      isFullscreen,
+      ...options
+    });
 
-    $container.append(view);
+    $container.append(this.view);
   }
 
   clear($container) {
@@ -18,17 +42,59 @@ export default class InteractiveVideoView {
     });
   }
 
-  createView(video, answers) {
-    var view = document.createElement('div');
+  createView(video, answers, { onPlayClicked, onCloseClicked, isFullscreen }) {
+    let btnPlay = this.createButton('play_circle_outline', 'interactive-video__btn-play');
+    let btnClose = this.createButton('close', 'interactive-video__btn-close');
 
-    view.classList.add('interactive-video');
+    btnPlay.addEventListener('click', this._handlePlayClicked(onPlayClicked));
+    btnClose.addEventListener('click', this._handleCloseClicked(onCloseClicked));
 
-    view.append(video);
+    let inner = document.createElement('div');
+    inner.classList.add('interactive-video__inner');
+
+    inner.append(video);
+    inner.append(btnPlay);
     if(answers != null) {
-      view.append(answers);
+      inner.append(answers);
     }
 
+    let view = document.createElement('div');
+    view.classList.add('interactive-video');
+    if(isFullscreen) {
+      view.classList.add('interactive-video--fullscreen');
+    }
+
+    // view.append(btnClose);
+    view.append(inner);
+
     return view;
+  }
+
+  _handlePlayClicked = (callback) => {
+    return () => {
+      // document.body.classList.add('page-locked');
+      toggleFullScreen(false);
+
+      this.view.classList.add('interactive-video--fullscreen');
+      this.video.play();
+
+      if(callback) {
+        callback();
+      }
+    }
+  }
+
+  _handleCloseClicked = (callback) => {
+    return () => {
+      document.body.classList.remove('page-locked');
+
+      this.view.classList.remove('interactive-video--fullscreen');
+      this.video.pause();
+
+      if(callback) {
+        callback();
+      }
+    }
   }
 
   createVideo(link, { onVideoPlayed }) {
@@ -36,7 +102,7 @@ export default class InteractiveVideoView {
 
     video.setAttribute('src', link);
     video.setAttribute('preload', 'auto');
-    video.setAttribute('controls', '');
+    // video.setAttribute('controls', '');
     video.classList.add('interactive-video__video');
 
     video.addEventListener('ended', onVideoPlayed);
@@ -58,6 +124,15 @@ export default class InteractiveVideoView {
     });
 
     return answers;
+  }
+
+  createButton(type, className) {
+    let button = document.createElement('div');
+
+    button.classList.add("material-icons", className);
+    button.textContent = type;
+
+    return button;
   }
 
   createAnswer(data, { onAnswerClick }) {

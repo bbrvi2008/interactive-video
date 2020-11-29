@@ -5,13 +5,15 @@ import InteractiveVideoView from './InteractiveVideoView';
 const SlideType = {
   SIMPLE: 'simple',
   QUESTION: 'question'
-}
+};
 
 const InteractiveVideoEvents = {
   SIMPLE_VIDEO_PLAYED: 'event:simple-video-played',
   QUESTION_VIDEO_PLAYED: 'event:question-video-played',
-  ANSWER_CLICKED: 'event:answer-clicked'
-}
+  ANSWER_CLICKED: 'event:answer-clicked',
+  PLAY_CLICKED: 'event:play-clicked',
+  CLOSE_CLICKED: 'event:close-clicked'
+};
 
 export default class InteractiveVideo {
   constructor($container, scenario) {
@@ -29,7 +31,11 @@ export default class InteractiveVideo {
   }
 
   _playSlide(slideData) {
-    var slide = this.createSlide(this.$container, slideData);
+    var slide = this.createSlide(this.$container, {
+      isFullscreen: true,
+      ...slideData
+    });
+    
     slide.video.addEventListener('canplay', () => {
       slide.video.play();
     });
@@ -38,6 +44,8 @@ export default class InteractiveVideo {
   bindEventHandlers() {
     this.eventEmitter.on(InteractiveVideoEvents.SIMPLE_VIDEO_PLAYED, this._handleSimpleVideoPlayed);
     this.eventEmitter.on(InteractiveVideoEvents.ANSWER_CLICKED, this._handleAnswerClicked)
+    this.eventEmitter.on(InteractiveVideoEvents.PLAY_CLICKED, this._handlePlayClicked)
+    this.eventEmitter.on(InteractiveVideoEvents.CLOSE_CLICKED, this._handleCloseClicked)
   }
 
   _handleSimpleVideoPlayed = () => {
@@ -57,6 +65,14 @@ export default class InteractiveVideo {
       : this.createSlideDataFromAnswer(answer);
 
     this._playSlide(nextSlideData);
+  }
+
+  _handlePlayClicked = () => {
+
+  }
+
+  _handleCloseClicked = () => {
+    
   }
 
   createSlide($container, slideData) {
@@ -96,6 +112,12 @@ export default class InteractiveVideo {
     return new InteractiveVideoView($container, slide, {
       onVideoPlayed: () => {
         this.eventEmitter.emit(InteractiveVideoEvents.SIMPLE_VIDEO_PLAYED);
+      },
+      onPlayClicked: () => {
+        this.eventEmitter.emit(InteractiveVideoEvents.PLAY_CLICKED);
+      },
+      onCloseClicked: () => {
+        this.eventEmitter.emit(InteractiveVideoEvents.CLOSE_CLICKED);
       }
     });
   }
@@ -107,6 +129,12 @@ export default class InteractiveVideo {
       },
       onVideoPlayed: () => {
         view.answers.classList.remove('hidden');
+      },
+      onPlayClicked: () => {
+        this.eventEmitter.emit(InteractiveVideoEvents.PLAY_CLICKED);
+      },
+      onCloseClicked: () => {
+        this.eventEmitter.emit(InteractiveVideoEvents.CLOSE_CLICKED);
       }
     });
 
