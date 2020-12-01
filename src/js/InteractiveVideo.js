@@ -58,6 +58,7 @@ export default class InteractiveVideo {
   _handleAnswerClicked = (answer) => {
     if(answer.isRight && !answer.videoLink) {
       this._handleSimpleVideoPlayed();
+      return;
     }
 
     let nextSlideData = answer.isRight
@@ -97,11 +98,12 @@ export default class InteractiveVideo {
   }
 
   createSlideDataFromAnswer({ videoLink }) {
-    let { answers } = this.slides.getCurrent();
+    let { answers, question } = this.slides.getCurrent();
 
     return {
       type: SlideType.QUESTION,
       question: {
+        text: question.text,
         videoLink
       },
       answers

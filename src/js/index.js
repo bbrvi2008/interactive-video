@@ -1,128 +1,92 @@
 import '../css/normalize.css';
-// import '../css/style.css';
 import '../scss/style.scss';
 
 import InteractiveVideo from './InteractiveVideo';
 
-let scenario1 = [{
-  rank: 1,
-  type: 'question',
-  question: {
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1.mp4?raw=true"
-  },
-  answers: [{
-    text: "Успокойтесь, пожалуйста, сейчас мы во всем разберемся.",
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1__answer_1.mp4?raw=true",
-    isRight: false
-  }, {
-    text: "Пожалуйста, расскажите, что случилось. (без улыбки)",
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1__answer_2.mp4?raw=true",
-    isRight: true
-  }, {
-    text: "Пожалуйста, расскажите, что случилось. (с улыбкой)",
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1__answer_3.mp4?raw=true",
-    isRight: false
-  }]
-}, {
-  rank: 2,
-  type: 'question',
-  question: {
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_2.mp4?raw=true"
-  },
-  answers: [{
-    text: "Действительно, ситуация очень неприятная, тем более накануне отпуска.",
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_2__answer_1.mp4?raw=true",
-    isRight: true
-  }, {
-    text: "Возможно, Вы пин код неверно ввели? Или срок действия карты закончился?",
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_2__answer_2.mp4?raw=true",
-    isRight: false
-  }, {
-    text: "Я Вас прекрасно понимаю.",
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_2__answer_3.mp4?raw=true",
-    isRight: false
-  }]
-}];
-
 let scenario = [{
+  rank: 0,
+  type: 'question',
+  question: {
+    videoLink: "/Style Library/res/files-card2020/files/Opener.mp4"
+  },
+  answers: [{
+    isRight: true
+  }]
+}, {
   rank: 1,
   type: 'question',
   question: {
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1.mp4?raw=true"
+    videoLink: "/Style Library/res/files-card2020/files/Question 1.mp4"
   },
   answers: [{
-    text: "Да",
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1__answer_2.mp4?raw=true",
+    videoLink: "/Style Library/res/files-card2020/files/Answer 1-1.mp4",
     isRight: true
   }, {
-    text: "Нет",
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1__answer_3.mp4?raw=true",
+    videoLink: "/Style Library/res/files-card2020/files/Answer 1-2.mp4",
     isRight: false
   }]
 }, {
   rank: 2,
   type: 'question',
   question: {
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1.mp4?raw=true"
+    videoLink: "/Style Library/res/files-card2020/files/Question 2.mp4"
   },
   answers: [{
-    text: "Красноярский",
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1__answer_2.mp4?raw=true",
+    videoLink: "/Style Library/res/files-card2020/files/Answer 2-1.mp4",
     isRight: true
   }, {
-    text: "Лондонский",
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1__answer_3.mp4?raw=true",
+    videoLink: "/Style Library/res/files-card2020/files/Answer 2-2.mp4",
     isRight: false
   }]
 }, {
   rank: 3,
   type: 'question',
   question: {
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1.mp4?raw=true"
+    videoLink: "/Style Library/res/files-card2020/files/Question 3.mp4"
   },
   answers: [{
-    text: "Сусликов",
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1__answer_1.mp4?raw=true",
+    videoLink: "/Style Library/res/files-card2020/files/Answer 3-2.mp4",
     isRight: false
   }, {
-    text: "Уток",
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1__answer_3.mp4?raw=true",
+    videoLink: "/Style Library/res/files-card2020/files/Answer 3-1.mp4",
     isRight: true
   }]
 }, {
   rank: 4,
   type: 'question',
   question: {
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1.mp4?raw=true"
+    videoLink: "/Style Library/res/files-card2020/files/Question 4.mp4"
   },
   answers: [{
-    text: "Хазрет Меджидович Совмен",
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1__answer_2.mp4?raw=true",
+    videoLink: "/Style Library/res/files-card2020/files/Answer 4-1.mp4",
     isRight: true
   }, {
-    text: "Дед Мороз",
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1__answer_3.mp4?raw=true",
+    videoLink: "/Style Library/res/files-card2020/files/Answer 4-2.mp4",
     isRight: false
   }]
 }, {
   rank: 5,
   type: 'question',
   question: {
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1.mp4?raw=true"
+    videoLink: "/Style Library/res/files-card2020/files/Question 5.mp4"
   },
   answers: [{
-    text: "В Красноярске",
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1__answer_2.mp4?raw=true",
+    videoLink: "/Style Library/res/files-card2020/files/Answer 5-1.mp4",
     isRight: true
   }, {
-    text: "Не в Красноярске",
-    videoLink: "https://github.com/bbrvi2008/interactive-video/blob/master/src/files/question_1__answer_3.mp4?raw=true",
+    videoLink: "/Style Library/res/files-card2020/files/Answer 5-2.mp4",
     isRight: false
   }]
+}, {
+  rank: 6,
+  type: 'simple',
+  question: {
+    videoLink: "/Style Library/res/files-card2020/files/Coda 2.mp4"
+  }
 }];
 
 let $container = document.querySelector('.interactive-video-container');
-let interavtiveVideo = new InteractiveVideo($container, scenario1);
+let interavtiveVideo = new InteractiveVideo($container, scenario);
 
-interavtiveVideo.show();
+// interavtiveVideo.show();
 

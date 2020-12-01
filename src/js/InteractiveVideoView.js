@@ -23,8 +23,8 @@ export default class InteractiveVideoView {
   constructor($container, {question, answers, isFullscreen}, options) {
     this.clear($container);
 
-    this.video = this.createVideo(question.videoLink, options);
-    this.answers = this.createAnswers(answers, options);
+    this.video = this.createVideo(this.getVideoLink(question.videoLink), options);
+    this.answers = this.createAnswers(answers, options)
     
     this.view = this.createView(this.video, this.answers, {
       isFullscreen,
@@ -42,7 +42,14 @@ export default class InteractiveVideoView {
     });
   }
 
+  getVideoLink(link) {
+    if(location.hostname === 'www.admkrsk.ru') return link;
+
+    return `http://www.admkrsk.ru${link}`;
+  }
+
   createView(video, answers, { onPlayClicked, onCloseClicked, isFullscreen }) {
+    let overlay = this.createButton('screen_rotation', 'interactive-video__overlay');
     let btnPlay = this.createButton('play_circle_outline', 'interactive-video__btn-play');
     let btnClose = this.createButton('close', 'interactive-video__btn-close');
 
@@ -57,6 +64,7 @@ export default class InteractiveVideoView {
     if(answers != null) {
       inner.append(answers);
     }
+    inner.append(overlay);
 
     let view = document.createElement('div');
     view.classList.add('interactive-video');
@@ -110,6 +118,22 @@ export default class InteractiveVideoView {
     return video;
   }
 
+  createQuestion(questionText) {
+    if(!questionText) return null;
+
+    let title = document.createElement('h2');
+
+    title.classList.add('interactive-video__question-title');
+    title.textContent = questionText;
+
+    let questionContainer = document.createElement('div');
+    questionContainer.classList.add('interactive-video__question');
+
+    questionContainer.append(title);
+
+    return questionContainer;
+  }
+
   createAnswers(data, options) {
     if(!data) return null;
 
@@ -136,12 +160,9 @@ export default class InteractiveVideoView {
   }
 
   createAnswer(data, { onAnswerClick }) {
-    let { text } = data;
-
     let answer = document.createElement('button');
 
-    answer.classList.add('btn', 'btn__secondary', 'interactive-video__answer-item');
-    answer.textContent = text;
+    answer.classList.add('btn', 'interactive-video__answer-item');
 
     answer.addEventListener('click', (event) => {
       onAnswerClick(data);
