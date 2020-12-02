@@ -27,7 +27,8 @@ export default class InteractiveVideo {
 
   show() {
     let currentSlideData = this.slides.getCurrent();
-    this.createSlide(this.$container, currentSlideData);
+    this.currentSlide = this.createSlide(this.$container, currentSlideData);
+    this.currentSlide.show();
   }
 
   _playSlide(slideData) {
@@ -37,7 +38,10 @@ export default class InteractiveVideo {
     });
     
     slide.video.addEventListener('canplay', () => {
-      slide.video.play();
+      this.currentSlide.hide();
+      this.currentSlide = slide;
+      this.currentSlide.show();
+      this.currentSlide.video.play();
     });
   }
 

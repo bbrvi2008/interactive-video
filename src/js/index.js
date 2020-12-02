@@ -88,5 +88,5 @@ let scenario = [{
 let $container = document.querySelector('.interactive-video-container');
 let interavtiveVideo = new InteractiveVideo($container, scenario);
 
-// interavtiveVideo.show();
+interavtiveVideo.show();
 

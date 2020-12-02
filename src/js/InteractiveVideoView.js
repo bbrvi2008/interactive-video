@@ -21,7 +21,8 @@ function toggleFullScreen(isFullscreen) {
 
 export default class InteractiveVideoView {
   constructor($container, {question, answers, isFullscreen}, options) {
-    this.clear($container);
+    // this.clear($container);
+    this.$container = $container;
 
     this.video = this.createVideo(this.getVideoLink(question.videoLink), options);
     this.answers = this.createAnswers(answers, options)
@@ -31,21 +32,21 @@ export default class InteractiveVideoView {
       ...options
     });
 
-    $container.append(this.view);
+    // $container.append(this.view);
   }
 
-  clear($container) {
-    let childrens = Array.from($container.children);
-
-    childrens.forEach(children => {
-      children.remove();
-    });
+  hide() {
+    this.view.remove();
   }
+
+  show() {
+    this.$container.append(this.view);
+  };
 
   getVideoLink(link) {
     if(location.hostname === 'www.admkrsk.ru') return link;
 
-    return `http://www.admkrsk.ru${link}`;
+    return `//www.admkrsk.ru${link}`;
   }
 
   createView(video, answers, { onPlayClicked, onCloseClicked, isFullscreen }) {
@@ -79,7 +80,7 @@ export default class InteractiveVideoView {
   }
 
   _handlePlayClicked = (callback) => {
-    return () => {
+    return (event) => {
       // document.body.classList.add('page-locked');
       toggleFullScreen(false);
 
@@ -110,10 +111,15 @@ export default class InteractiveVideoView {
 
     video.setAttribute('src', link);
     video.setAttribute('preload', 'auto');
-    // video.setAttribute('controls', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', 'true');
+    // video.setAttribute('controls', 'false');
     video.classList.add('interactive-video__video');
 
+    video.controls = false;
+
     video.addEventListener('ended', onVideoPlayed);
+    video.addEventListener("contextmenu", function (e) { e.preventDefault(); e.stopPropagation(); }, false);
 
     return video;
   }
@@ -163,8 +169,10 @@ export default class InteractiveVideoView {
     let answer = document.createElement('button');
 
     answer.classList.add('btn', 'interactive-video__answer-item');
+    answer.setAttribute('type', 'button');
 
     answer.addEventListener('click', (event) => {
+      event.preventDefault();
       onAnswerClick(data);
     });
 
