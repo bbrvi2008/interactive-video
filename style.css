@@ -507,13 +507,18 @@ h2 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 100px;
-    color: #ccc;
-    cursor: pointer;
-    z-index: 10; }
+    z-index: 10;
+    text-align: center; }
     @media (orientation: landscape), (min-width: 768px) {
       .interactive-video__overlay {
         display: none; } }
+  .interactive-video__overlay-icon {
+    font-size: 100px;
+    color: #ccc;
+    cursor: pointer; }
+  .interactive-video__overlay-text {
+    color: #ccc;
+    font-size: 32px; }
   .interactive-video__btn-close {
     display: none;
     position: absolute;
