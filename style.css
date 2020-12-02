@@ -494,9 +494,7 @@ h2 {
   .interactive-video__btn-play {
     position: absolute;
     top: 50%;
-    bottom: 0;
     left: 50%;
-    right: 0;
     transform: translate(-50%, -50%);
     font-size: 100px;
     color: #ccc;
@@ -507,9 +505,7 @@ h2 {
   .interactive-video__overlay {
     position: absolute;
     top: 50%;
-    bottom: 0;
     left: 50%;
-    right: 0;
     transform: translate(-50%, -50%);
     font-size: 100px;
     color: #ccc;
@@ -547,6 +543,7 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     background: rgba(59, 66, 86, 0.97);
     transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1); }
     .interactive-video--fullscreen .interactive-video__btn-play {
@@ -564,10 +561,11 @@ h2 {
   z-index: 100; }
 
 .interactive-video-container {
-  min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
   background: rgba(59, 66, 86, 0.97); }
 
 
