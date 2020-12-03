@@ -408,9 +408,6 @@ body {
   border: none;
   transition: all 0.2s linear 0s; }
 
-.btn:hover {
-  box-shadow: 0 16px 24px rgba(47, 52, 68, 0.16); }
-
 .btn.btn__secondary {
   border: 1px solid #8f1a1e;
   background: #8f1a1e;
@@ -475,7 +472,8 @@ h2 {
     justify-content: space-around; }
   .interactive-video__answer-item {
     flex: 1;
-    background: none; }
+    background: none;
+    margin: 50px; }
   .interactive-video__inner {
     position: relative;
     background: rgba(30, 30, 30, 0.6);
