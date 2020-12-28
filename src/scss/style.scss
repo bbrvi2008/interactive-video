@@ -1,11 +1,13 @@
 @import './fonts.scss';
 @import './base.scss';
 @import '../blocks/interactive-video/interactive-video.scss';
+@import '../blocks/view-console/view-console.scss';
 
 .interactive-video-container {
-  min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
   background: rgba(59, 66, 86, .97);
 }

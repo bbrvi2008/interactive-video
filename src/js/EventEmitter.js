@@ -11,7 +11,6 @@ export default class EventEmitter {
   }
 
   on(eventName, callback) {
-      // code here
       if(!this.events[eventName]) {
         this.events[eventName] = [];
       }
@@ -20,13 +19,13 @@ export default class EventEmitter {
   }
 
   off(eventName, callback) {
-      // code here
       this.events[eventName] = this.events[eventName]
         .filter(fn => fn === callback);
   }
 
   once(eventName, callback) {
-      // code here
+      console.log('once', eventName);
+
       if(!this.events[eventName]) {
         this.events[eventName] = [];
       }
@@ -35,7 +34,7 @@ export default class EventEmitter {
   }
 
   emit(eventName, ...args) {
-      // code here
+    console.log('emit', eventName);
       let handlers = this.events[eventName];
       if(!handlers) return;
 

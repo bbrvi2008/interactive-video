@@ -1,22 +1,26 @@
 function toggleFullScreen(isFullscreen) {
-  if (!isFullscreen && !document.fullscreenElement &&    // alternative standard method
-      !document.mozFullScreenElement && !document.webkitFullscreenElement) {  // current working methods
-      if (document.documentElement.requestFullscreen) {
-          document.documentElement.requestFullscreen();
-      } else if (document.documentElement.mozRequestFullScreen) {
-          document.documentElement.mozRequestFullScreen();
-      } else if (document.documentElement.webkitRequestFullscreen) {
-          document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-      }
-  } else {
-      if (document.cancelFullScreen) {
-          document.cancelFullScreen();
-      } else if (document.mozCancelFullScreen) {
-          document.mozCancelFullScreen();
-      } else if (document.webkitCancelFullScreen) {
-          document.webkitCancelFullScreen();
-      }
-  }
+  if (!isFullscreen && !document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+    document.documentElement.mozRequestFullScreen(); // Firefox
+    } else if (document.documentElement.webkitRequestFullscreen) {
+        document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT); // Chrome and Safari
+    } else if (document.documentElement.msRequestFullscreen) {
+        document.documentElement.msRequestFullscreen(); // IE
+    }
+} else {
+
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    }
+}
 }
 
 export default class InteractiveVideoView {
@@ -32,15 +36,15 @@ export default class InteractiveVideoView {
       ...options
     });
 
-    // $container.append(this.view);
+    // $container.appendChild(this.view);
   }
 
   hide() {
-    this.view.remove();
+    this.view.parentNode.removeChild(this.view);
   }
 
   show() {
-    this.$container.append(this.view);
+    this.$container.appendChild(this.view);
   };
 
   getVideoLink(link) {
@@ -50,7 +54,7 @@ export default class InteractiveVideoView {
   }
 
   createView(video, answers, { onPlayClicked, onCloseClicked, isFullscreen }) {
-    let overlay = this.createButton('screen_rotation', 'interactive-video__overlay');
+    let overlay = this.createOverlay();
     let btnPlay = this.createButton('play_circle_outline', 'interactive-video__btn-play');
     let btnClose = this.createButton('close', 'interactive-video__btn-close');
 
@@ -60,12 +64,12 @@ export default class InteractiveVideoView {
     let inner = document.createElement('div');
     inner.classList.add('interactive-video__inner');
 
-    inner.append(video);
-    inner.append(btnPlay);
+    inner.appendChild(video);
+    inner.appendChild(btnPlay);
     if(answers != null) {
-      inner.append(answers);
+      inner.appendChild(answers);
     }
-    inner.append(overlay);
+    inner.appendChild(overlay);
 
     let view = document.createElement('div');
     view.classList.add('interactive-video');
@@ -73,8 +77,8 @@ export default class InteractiveVideoView {
       view.classList.add('interactive-video--fullscreen');
     }
 
-    // view.append(btnClose);
-    view.append(inner);
+    // view.appendChild(btnClose);
+    view.appendChild(inner);
 
     return view;
   }
@@ -95,6 +99,7 @@ export default class InteractiveVideoView {
 
   _handleCloseClicked = (callback) => {
     return () => {
+      toggleFullScreen(true);
       document.body.classList.remove('page-locked');
 
       this.view.classList.remove('interactive-video--fullscreen');
@@ -135,7 +140,7 @@ export default class InteractiveVideoView {
     let questionContainer = document.createElement('div');
     questionContainer.classList.add('interactive-video__question');
 
-    questionContainer.append(title);
+    questionContainer.appendChild(title);
 
     return questionContainer;
   }
@@ -150,29 +155,47 @@ export default class InteractiveVideoView {
     data.forEach((item) => {
       var answer = this.createAnswer(item, options);
 
-      answers.append(answer);
+      answers.appendChild(answer);
     });
 
     return answers;
   }
 
-  createButton(type, className) {
+  createButton(type, className = '') {
     let button = document.createElement('div');
 
-    button.classList.add("material-icons", className);
+    button.classList.add("material-icons");
+    if(className.length) {
+      button.classList.add(className);
+    }
+
     button.textContent = type;
 
     return button;
   }
 
-  createAnswer(data, { onAnswerClick }) {
-    let answer = document.createElement('button');
+  createOverlay() {
+    const overlay = document.createElement('div');
+    overlay.classList.add('interactive-video__overlay');
 
-    answer.classList.add('btn', 'interactive-video__answer-item');
-    answer.setAttribute('type', 'button');
+    let button = this.createButton('screen_rotation', 'interactive-video__overlay-icon');
+    let text = document.createElement('p');
+    text.classList.add('interactive-video__overlay-text');
+    text.textContent = 'Поверните экран';
+
+    overlay.appendChild(button);
+    overlay.appendChild(text);
+
+    return overlay;
+  }
+
+  createAnswer(data, { onAnswerClick }) {
+    let answer = document.createElement('div');
+
+    // answer.classList.add('btn');
+    answer.classList.add('interactive-video__answer-item');
 
     answer.addEventListener('click', (event) => {
-      event.preventDefault();
       onAnswerClick(data);
     });
 

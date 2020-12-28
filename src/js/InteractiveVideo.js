@@ -1,5 +1,7 @@
+import debounce from 'lodash/debounce';
+
 import Slider from './Slider';
-import EventEmitter from './EventEmitter';
+import EventEmitter from 'events';
 import InteractiveVideoView from './InteractiveVideoView';
 
 const SlideType = {
@@ -15,12 +17,50 @@ const InteractiveVideoEvents = {
   CLOSE_CLICKED: 'event:close-clicked'
 };
 
+
+class InteractiveAudio {
+  constructor($container, { link }) {
+    this.$container = $container;
+
+    this.player = this.createView(this.getLink(link))
+  }
+
+  getLink(link) {
+    console.log(link);
+
+    return link;
+
+    if(location.hostname === 'www.admkrsk.ru') return link;
+
+    return `//www.admkrsk.ru${link}`;
+  }
+
+  play() {
+    this.player.play()
+  }
+
+  pause() {
+    this.player.pause();
+  }
+
+  createView(link) {
+    let audio = document.createElement('audio');
+
+    audio.setAttribute('preload', 'auto');
+    audio.setAttribute('playsinline', '');
+    audio.setAttribute('src', link);
+
+    return audio;
+  }
+}
+
 export default class InteractiveVideo {
-  constructor($container, scenario) {
+  constructor($container, { questions, audio }) {
     this.$container = $container;
 
     this.eventEmitter = new EventEmitter();
-    this.slides = new Slider(scenario);
+    this.slides = new Slider(questions);
+    // this.audio = new InteractiveAudio($container, audio);
 
     this.bindEventHandlers()
   }
@@ -32,24 +72,48 @@ export default class InteractiveVideo {
   }
 
   _playSlide(slideData) {
+    if(this.intervalId) return;
+    // this._handleAudio(slideData);
+    
     var slide = this.createSlide(this.$container, {
       isFullscreen: true,
       ...slideData
     });
-    
-    slide.video.addEventListener('canplay', () => {
-      this.currentSlide.hide();
-      this.currentSlide = slide;
-      this.currentSlide.show();
-      this.currentSlide.video.play();
-    });
+
+    this.intervalId = setInterval(() => {
+      // console.log(slide.video.readyState);
+
+      if(slide.video.readyState > 0) {
+        // viewConsole.log(slide.video.readyState);
+
+        clearInterval(this.intervalId);
+        this.intervalId = null;
+        slide.video.play();
+        slide.show();
+        
+        this.currentSlide.hide();
+        this.currentSlide = slide;
+      }
+    }, 200)
+
+    // viewConsole.log('_playSlide end');
+  }
+
+  _handleAudio({ rank }) {
+    if(rank == 1) {
+      this.audio.play()
+    }
+
+    if(rank === 6) {
+      this.audio.pause();
+    }
   }
 
   bindEventHandlers() {
     this.eventEmitter.on(InteractiveVideoEvents.SIMPLE_VIDEO_PLAYED, this._handleSimpleVideoPlayed);
-    this.eventEmitter.on(InteractiveVideoEvents.ANSWER_CLICKED, this._handleAnswerClicked)
-    this.eventEmitter.on(InteractiveVideoEvents.PLAY_CLICKED, this._handlePlayClicked)
-    this.eventEmitter.on(InteractiveVideoEvents.CLOSE_CLICKED, this._handleCloseClicked)
+    this.eventEmitter.on(InteractiveVideoEvents.ANSWER_CLICKED, this._handleAnswerClicked);
+    this.eventEmitter.on(InteractiveVideoEvents.PLAY_CLICKED, this._handlePlayClicked);
+    this.eventEmitter.on(InteractiveVideoEvents.CLOSE_CLICKED, this._handleCloseClicked);
   }
 
   _handleSimpleVideoPlayed = () => {
@@ -60,11 +124,14 @@ export default class InteractiveVideo {
   }
 
   _handleAnswerClicked = (answer) => {
+    // console.log('_handleAnswerClicked');
+    if(this.currentSlide.video.duration - 2 > this.currentSlide.video.currentTime) return;
+
     if(answer.isRight && !answer.videoLink) {
       this._handleSimpleVideoPlayed();
       return;
     }
-
+    
     let nextSlideData = answer.isRight
       ? this.createSlideDataFromVideoLink(answer.videoLink)
       : this.createSlideDataFromAnswer(answer);
@@ -134,7 +201,7 @@ export default class InteractiveVideo {
         this.eventEmitter.emit(InteractiveVideoEvents.ANSWER_CLICKED, data);
       },
       onVideoPlayed: () => {
-        view.answers.classList.remove('hidden');
+        // view.answers.classList.remove('hidden');
       },
       onPlayClicked: () => {
         this.eventEmitter.emit(InteractiveVideoEvents.PLAY_CLICKED);
@@ -144,7 +211,7 @@ export default class InteractiveVideo {
       }
     });
 
-    view.answers.classList.add('hidden');
+    // view.answers.classList.add('hidden');
 
     return view;
   }

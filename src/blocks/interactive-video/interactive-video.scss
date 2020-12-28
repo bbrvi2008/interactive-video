@@ -39,9 +39,9 @@
   &__answer-item {
     flex: 1;
     background: none;
+    margin: 50px;
 
-    // background-color: rgba(255, 0, 0, 0.2);
-    // margin: 50px;
+    // background-color: rgba(255, 0, 0, 0.1);
     // border-radius: 50px;
   }
 
@@ -68,9 +68,7 @@
   &__btn-play {
     position: absolute;
     top: 50%;
-    bottom: 0;
     left: 50%;
-    right: 0;
     transform: translate(-50%, -50%);
     font-size: 100px;
     color: #ccc;
@@ -83,18 +81,26 @@
   &__overlay {
     position: absolute;
     top: 50%;
-    bottom: 0;
     left: 50%;
-    right: 0;
     transform: translate(-50%, -50%);
-    font-size: 100px;
-    color: #ccc;  
-    cursor: pointer;
     z-index: 10;
+    text-align: center;
 
     @media (orientation : landscape), (min-width: 768px) {
       display: none;
     }
+  }
+
+  &__overlay-icon {
+    font-size: 100px;
+    color: #ccc;  
+    cursor: pointer;
+  }
+
+  &__overlay-text {
+    color: #ccc;
+    font-size: 22px;
+    margin-bottom: 0;
   }
 
   &__btn-close {
@@ -130,6 +136,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+
 
     background: rgba(59, 66, 86, .97);
     transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);

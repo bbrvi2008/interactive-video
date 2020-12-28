@@ -3,7 +3,7 @@ import '../scss/style.scss';
 
 import InteractiveVideo from './InteractiveVideo';
 
-let scenario = [{
+let questions = [{
   rank: 0,
   type: 'question',
   question: {
@@ -84,6 +84,13 @@ let scenario = [{
     videoLink: "/Style Library/res/files-card2020/files/Coda 2.mp4"
   }
 }];
+
+let scenario = {
+  audio: {
+    link: '/Style Library/res/files-card2020/files/Music_mixdown.mp3'
+  }, 
+  questions
+}
 
 let $container = document.querySelector('.interactive-video-container');
 let interavtiveVideo = new InteractiveVideo($container, scenario);
