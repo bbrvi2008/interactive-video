@@ -48,6 +48,8 @@ export default class InteractiveVideoView {
   };
 
   getVideoLink(link) {
+    return link;
+
     if(location.hostname === 'www.admkrsk.ru') return link;
 
     return `//www.admkrsk.ru${link}`;
@@ -190,10 +192,12 @@ export default class InteractiveVideoView {
   }
 
   createAnswer(data, { onAnswerClick }) {
-    let answer = document.createElement('div');
+    let { text } = data;
 
-    // answer.classList.add('btn');
-    answer.classList.add('interactive-video__answer-item');
+    let answer = document.createElement('button');
+
+    answer.classList.add('btn', 'btn__secondary', 'interactive-video__answer-item');
+    answer.textContent = text;
 
     answer.addEventListener('click', (event) => {
       onAnswerClick(data);

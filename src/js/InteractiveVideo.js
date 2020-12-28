@@ -201,7 +201,7 @@ export default class InteractiveVideo {
         this.eventEmitter.emit(InteractiveVideoEvents.ANSWER_CLICKED, data);
       },
       onVideoPlayed: () => {
-        // view.answers.classList.remove('hidden');
+        view.answers.classList.remove('hidden');
       },
       onPlayClicked: () => {
         this.eventEmitter.emit(InteractiveVideoEvents.PLAY_CLICKED);
@@ -211,7 +211,7 @@ export default class InteractiveVideo {
       }
     });
 
-    // view.answers.classList.add('hidden');
+    view.answers.classList.add('hidden');
 
     return view;
   }

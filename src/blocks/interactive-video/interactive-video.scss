@@ -23,26 +23,66 @@
     margin-bottom: 0;
   }
 
-  &__answer-list {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+  // &__answer-list {
+  //   position: absolute;
+  //   left: 0;
+  //   right: 0;
+  //   top: 0;
+  //   bottom: 0;
 
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   flex-direction: row;
+  //   justify-content: space-around;
+  // }
+
+  // &__answer-item {
+  //   flex: 1;
+  //   background: none;
+  //   margin: 50px;
+
+  //   // background-color: rgba(255, 0, 0, 0.1);
+  //   // border-radius: 50px;
+  // }
+
+  &__answer-list {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
+    margin-top: 18px;
+
+    @media (min-width: 768px) {
+      flex-wrap: nowrap;
+    }
+
+    @media (orientation: landscape), (min-width: 768px) {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 18px;
+    }
   }
 
   &__answer-item {
-    flex: 1;
-    background: none;
-    margin: 50px;
+    flex: 0 0 100%;
 
-    // background-color: rgba(255, 0, 0, 0.1);
-    // border-radius: 50px;
+    &:nth-child(n + 2) {
+      margin-top: 18px;
+    }
+
+    @media (min-width: 768px) {
+      flex-shrink: 1;
+
+      &:nth-child(n + 2) {
+        margin-top: 0;
+      }
+
+      &:nth-last-child(n + 2) {
+        margin-right: 30px;
+      }
+    }
   }
 
   &__inner {

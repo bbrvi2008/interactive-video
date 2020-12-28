@@ -5,90 +5,124 @@ import InteractiveVideo from './InteractiveVideo';
 
 let questions = [{
   rank: 0,
-  type: 'question',
+  type: 'simple',
   question: {
-    videoLink: "/Style Library/res/files-card2020/files/Opener.mp4"
-  },
-  answers: [{
-    isRight: true
-  }]
+    videoLink: "/src/files/Макссофт_1-converted.mp4"
+  }
 }, {
   rank: 1,
   type: 'question',
   question: {
-    videoLink: "/Style Library/res/files-card2020/files/Question 1.mp4"
+    videoLink: "/src/files/ESET_1-converted.mp4"
   },
   answers: [{
-    videoLink: "/Style Library/res/files-card2020/files/Answer 1-1.mp4",
-    isRight: true
+    videoLink: "/src/files/ESET_2-converted.mp4",
+    isRight: false,
+    text: "Маски и перчатки"
   }, {
-    videoLink: "/Style Library/res/files-card2020/files/Answer 1-2.mp4",
-    isRight: false
+    videoLink: "/src/files/ESET_3-converted.mp4",
+    isRight: true,
+    text: "Комплект для удаленной работы"
   }]
 }, {
   rank: 2,
   type: 'question',
   question: {
-    videoLink: "/Style Library/res/files-card2020/files/Question 2.mp4"
+    videoLink: "/src/files/SAP_1-converted.mp4"
   },
   answers: [{
-    videoLink: "/Style Library/res/files-card2020/files/Answer 2-1.mp4",
-    isRight: true
+    videoLink: "/src/files/SAP_3-converted.mp4",
+    isRight: true,
+    text: "Да"
   }, {
-    videoLink: "/Style Library/res/files-card2020/files/Answer 2-2.mp4",
-    isRight: false
+    videoLink: "/src/files/SAP_2-converted.mp4",
+    isRight: false,
+    text: "Нет"
   }]
 }, {
   rank: 3,
   type: 'question',
   question: {
-    videoLink: "/Style Library/res/files-card2020/files/Question 3.mp4"
+    videoLink: "/src/files/Нанософт_1-converted.mp4"
   },
   answers: [{
-    videoLink: "/Style Library/res/files-card2020/files/Answer 3-2.mp4",
-    isRight: false
+    videoLink: "/src/files/Нанософт_3-converted.mp4",
+    isRight: true,
+    text: "Да"
   }, {
-    videoLink: "/Style Library/res/files-card2020/files/Answer 3-1.mp4",
-    isRight: true
+    videoLink: "/src/files/Нанософт_2-converted.mp4",
+    isRight: false,
+    text: "Нет"
   }]
 }, {
   rank: 4,
   type: 'question',
   question: {
-    videoLink: "/Style Library/res/files-card2020/files/Question 4.mp4"
+    videoLink: "/src/files/UserGate_1-converted.mp4"
   },
   answers: [{
-    videoLink: "/Style Library/res/files-card2020/files/Answer 4-1.mp4",
-    isRight: true
+    videoLink: "/src/files/UserGate_2-converted.mp4",
+    isRight: false,
+    text: "Волга"
   }, {
-    videoLink: "/Style Library/res/files-card2020/files/Answer 4-2.mp4",
-    isRight: false
+    videoLink: "/src/files/UserGate_3-converted.mp4",
+    isRight: true,
+    text: "Катунь"
   }]
 }, {
   rank: 5,
   type: 'question',
   question: {
-    videoLink: "/Style Library/res/files-card2020/files/Question 5.mp4"
+    videoLink: "/src/files/iSpring_1-converted.mp4"
   },
   answers: [{
-    videoLink: "/Style Library/res/files-card2020/files/Answer 5-1.mp4",
-    isRight: true
+    videoLink: "/src/files/iSpring_2-converted.mp4",
+    isRight: false,
+    text: "Быстрый интернет"
   }, {
-    videoLink: "/Style Library/res/files-card2020/files/Answer 5-2.mp4",
-    isRight: false
+    videoLink: "/src/files/iSpring_3-converted.mp4",
+    isRight: true,
+    text: "COVID-19"
   }]
 }, {
   rank: 6,
+  type: 'question',
+  question: {
+    videoLink: "/src/files/Kaspersky_1-converted.mp4"
+  },
+  answers: [{
+    videoLink: "/src/files/Kaspersky_3-converted.mp4",
+    isRight: true,
+    text: "Наталья Касперская"
+  }, {
+    videoLink: "/src/files/Kaspersky_2-converted.mp4",
+    isRight: false,
+    text: "Евгений Касперский"
+  }]
+}, {
+  rank: 7,
+  type: 'question',
+  question: {
+    videoLink: "/src/files/ABBYY_1-converted.mp4"
+  },
+  answers: [{
+    videoLink: "/src/files/ABBYY_2-converted.mp4",
+    isRight: false,
+    text: "Пасмурный нос"
+  }, {
+    videoLink: "/src/files/ABBYY_3-converted.mp4",
+    isRight: true,
+    text: "Ясный глаз"
+  }]
+}, {
+  rank: 8,
   type: 'simple',
   question: {
-    videoLink: "/Style Library/res/files-card2020/files/Coda 2.mp4"
+    videoLink: "/src/files/Макссофт_2-converted.mp4"
   }
 }];
 
 let scenario = {
-  audio: {
-    link: '/Style Library/res/files-card2020/files/Music_mixdown.mp3'
-  }, 
   questions
 }
 
