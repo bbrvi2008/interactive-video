@@ -490,7 +490,9 @@ h2 {
       left: 0;
       right: 0;
       background-image: url("https://raw.githubusercontent.com/bbrvi2008/interactive-video/maxsoft-video/src/img/background_2.jpg");
-      background-size: contain; }
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center; }
     @media (orientation: portrait) and (max-width: 767px) {
       .interactive-video__inner:before {
         content: '';
