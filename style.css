@@ -460,7 +460,7 @@ h2 {
     padding: 0 22px;
     margin-bottom: 0; }
   .interactive-video__answer-list {
-    display: flex;
+    display: none;
     align-items: center;
     flex-wrap: nowrap;
     background-image: url("https://raw.githubusercontent.com/bbrvi2008/interactive-video/maxsoft-video/src/img/background_1.jpg");
@@ -474,6 +474,7 @@ h2 {
         flex-wrap: wrap; } }
     @media (orientation: landscape), (min-width: 768px) {
       .interactive-video__answer-list {
+        display: flex;
         position: absolute;
         left: 0;
         right: 0;
