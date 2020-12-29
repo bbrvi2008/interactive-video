@@ -7,10 +7,6 @@
     width: 100%;
   }
 
-  &__video--playing {
-    position: relative;
-  }
-
   &__question {
     position: absolute;
     top: 0;
@@ -52,11 +48,16 @@
   &__answer-list {
     display: flex;
     align-items: center;
+    flex-wrap: nowrap;
     background-image: url('https://raw.githubusercontent.com/bbrvi2008/interactive-video/maxsoft-video/src/img/background_1.jpg');
-    background-size: contain;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 
-    @media (min-width: 768px) {
-      flex-wrap: nowrap;
+    @media (max-width: 767px) {
+      justify-content: center;
+      align-items: unset;
+      flex-wrap: wrap;
     }
 
     @media (orientation: landscape), (min-width: 768px) {
@@ -65,7 +66,7 @@
       right: 0;
       top: 0;
       bottom: 0;
-      padding: 30pxpx;
+      padding: 30px;
     }
   }
 
@@ -91,37 +92,43 @@
   }
 
   &__inner {
-      position: relative;
-      background: rgba(30, 30, 30, 0.6);
-      box-shadow: 2px 2px 10px rgba(30, 30, 30, 0.6);
-      min-width: 100%;
+    position: relative;
+    background: rgba(30, 30, 30, 0.6);
+    box-shadow: 2px 2px 10px rgba(30, 30, 30, 0.6);
+    min-width: 100%;
 
-      &::before {
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-image: url('https://raw.githubusercontent.com/bbrvi2008/interactive-video/maxsoft-video/src/img/background_2.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    @media (orientation : portrait) and (max-width: 767px)  {
+      &:before {
         content: '';
         position: absolute;
-        top: 0;
-        bottom: 0;
         left: 0;
         right: 0;
-        background-image: url('https://raw.githubusercontent.com/bbrvi2008/interactive-video/maxsoft-video/src/img/background_2.jpg');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
+        top: 0;
+        bottom: 0;
+        background-color: rgb(59, 66, 86);
+        background-image: none;
+        z-index: 10;
       }
+    }
+  }
 
-      @media (orientation : portrait) and (max-width: 767px)  {
-        &:before {
-          content: '';
-          position: absolute;
-          left: 0;
-          right: 0;
-          top: 0;
-          bottom: 0;
-          background-color: rgb(59, 66, 86);
-          background-image: none;
-          z-index: 10;
-        }
-      }
+  &__inner--video-playing {
+    &::before {
+      display: none;
+    }
   }
 
   &__btn-play {

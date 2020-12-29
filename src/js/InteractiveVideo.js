@@ -93,7 +93,7 @@ export default class InteractiveVideo {
         
         this.currentSlide.hide();
         this.currentSlide = slide;
-        this.currentSlide.video.classList.add('interactive-video__video--playing');
+        this.currentSlide.$container.querySelector('.interactive-video__inner').classList.add('interactive-video__inner--video-playing');
       }
     }, 200)
 
@@ -141,7 +141,7 @@ export default class InteractiveVideo {
   }
 
   _handlePlayClicked = () => {
-    this.currentSlide.video.classList.add('interactive-video__video--playing');
+    this.currentSlide.$container.querySelector('.interactive-video__inner').classList.add('interactive-video__inner--video-playing');
   }
 
   _handleCloseClicked = () => {
@@ -186,7 +186,11 @@ export default class InteractiveVideo {
     return new InteractiveVideoView($container, slide, {
       onVideoPlayed: () => {
         this.eventEmitter.emit(InteractiveVideoEvents.SIMPLE_VIDEO_PLAYED);
-        this.currentSlide.video.classList.remove('interactive-video__video--playing');
+
+        const { rank } = slide;
+        if(rank && rank == 8) {
+          this.currentSlide.$container.querySelector('.interactive-video__inner').classList.remove('interactive-video__inner--video-playing');
+        }
       },
       onPlayClicked: () => {
         this.eventEmitter.emit(InteractiveVideoEvents.PLAY_CLICKED);
@@ -204,7 +208,6 @@ export default class InteractiveVideo {
       },
       onVideoPlayed: () => {
         view.answers.classList.remove('hidden');
-        this.currentSlide.video.classList.remove('interactive-video__video--playing');
       },
       onPlayClicked: () => {
         this.eventEmitter.emit(InteractiveVideoEvents.PLAY_CLICKED);

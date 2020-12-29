@@ -4,16 +4,10 @@ import '../scss/style.scss';
 import InteractiveVideo from './InteractiveVideo';
 
 let questions = [{
-  rank: 0,
-  type: 'simple',
-  question: {
-    videoLink: "/src/files/Макссофт_1-converted.mp4"
-  }
-}, {
   rank: 1,
   type: 'question',
   question: {
-    videoLink: "/src/files/ESET_1-converted.mp4"
+    videoLink: "/src/files/ESET_2-converted.mp4"
   },
   answers: [{
     videoLink: "/src/files/ESET_2-converted.mp4",
