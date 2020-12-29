@@ -48,11 +48,13 @@ export default class InteractiveVideoView {
   };
 
   getVideoLink(link) {
-    return link;
+    // return link;
 
-    if(location.hostname === 'www.admkrsk.ru') return link;
+    // if(location.hostname === 'www.admkrsk.ru') return link;
 
-    return `//www.admkrsk.ru${link}`;
+    // return `//www.admkrsk.ru${link}`;
+
+    return `https://github.com/bbrvi2008/interactive-video/blob/maxsoft-video${link}?raw=true`;
   }
 
   createView(video, answers, { onPlayClicked, onCloseClicked, isFullscreen }) {

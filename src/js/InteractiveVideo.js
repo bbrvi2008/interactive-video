@@ -1,5 +1,3 @@
-import debounce from 'lodash/debounce';
-
 import Slider from './Slider';
 import EventEmitter from 'events';
 import InteractiveVideoView from './InteractiveVideoView';
@@ -26,13 +24,14 @@ class InteractiveAudio {
   }
 
   getLink(link) {
-    console.log(link);
+    // console.log(link);
 
-    return link;
+    // return link;
 
-    if(location.hostname === 'www.admkrsk.ru') return link;
+    // if(location.hostname === 'www.admkrsk.ru') return link;
 
-    return `//www.admkrsk.ru${link}`;
+    // return `//www.admkrsk.ru${link}`;
+    return `https://github.com/bbrvi2008/interactive-video/blob/maxsoft-video${link}?raw=true`;
   }
 
   play() {
@@ -74,6 +73,7 @@ export default class InteractiveVideo {
   _playSlide(slideData) {
     if(this.intervalId) return;
     // this._handleAudio(slideData);
+    console.log('_playSlide');
     
     var slide = this.createSlide(this.$container, {
       isFullscreen: true,
@@ -93,6 +93,7 @@ export default class InteractiveVideo {
         
         this.currentSlide.hide();
         this.currentSlide = slide;
+        this.currentSlide.video.classList.add('interactive-video__video--playing');
       }
     }, 200)
 
@@ -140,7 +141,7 @@ export default class InteractiveVideo {
   }
 
   _handlePlayClicked = () => {
-
+    this.currentSlide.video.classList.add('interactive-video__video--playing');
   }
 
   _handleCloseClicked = () => {
@@ -185,6 +186,7 @@ export default class InteractiveVideo {
     return new InteractiveVideoView($container, slide, {
       onVideoPlayed: () => {
         this.eventEmitter.emit(InteractiveVideoEvents.SIMPLE_VIDEO_PLAYED);
+        this.currentSlide.video.classList.remove('interactive-video__video--playing');
       },
       onPlayClicked: () => {
         this.eventEmitter.emit(InteractiveVideoEvents.PLAY_CLICKED);
@@ -202,6 +204,7 @@ export default class InteractiveVideo {
       },
       onVideoPlayed: () => {
         view.answers.classList.remove('hidden');
+        this.currentSlide.video.classList.remove('interactive-video__video--playing');
       },
       onPlayClicked: () => {
         this.eventEmitter.emit(InteractiveVideoEvents.PLAY_CLICKED);
