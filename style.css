@@ -409,24 +409,17 @@ body {
   transition: all 0.2s linear 0s; }
 
 .btn.btn__secondary {
-  border: 1px solid #8f1a1e;
-  background: #8f1a1e;
-  color: #fff !important;
-  box-shadow: none; }
+  border: 1px solid #ffffff;
+  background: #ffffff;
+  color: #000000 !important;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 24px;
+  box-shadow: 2px 2px 10px rgba(204, 204, 204, 0.8);
+  outline: none; }
 
 .btn.btn__secondary:hover {
-  background: #8d191d; }
-
-.btn.btn__secondary:active {
-  background: #8d191d; }
-
-.btn.btn__secondary:active:hover {
-  background: #7a1619; }
-
-.btn.btn__secondary:disabled {
-  background: #dde1e6;
-  color: #848e99 !important;
-  cursor: not-allowed; }
+  box-shadow: 2px 2px 10px rgba(121, 146, 228, 0.5); }
 
 h2 {
   font-size: 2.2rem;
@@ -448,6 +441,8 @@ h2 {
     display: block;
     max-height: 100vh;
     width: 100%; }
+  .interactive-video__video--playing {
+    position: relative; }
   .interactive-video__question {
     position: absolute;
     top: 0;
@@ -462,10 +457,9 @@ h2 {
     margin-bottom: 0; }
   .interactive-video__answer-list {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: 18px; }
+    align-items: center;
+    background-image: url("https://raw.githubusercontent.com/bbrvi2008/interactive-video/maxsoft-video/src/img/background_1.jpg");
+    background-size: contain; }
     @media (min-width: 768px) {
       .interactive-video__answer-list {
         flex-wrap: nowrap; } }
@@ -474,24 +468,29 @@ h2 {
         position: absolute;
         left: 0;
         right: 0;
+        top: 0;
         bottom: 0;
-        padding: 18px; } }
+        padding: 30pxpx; } }
   .interactive-video__answer-item {
-    flex: 0 0 100%; }
-    .interactive-video__answer-item:nth-child(n + 2) {
-      margin-top: 18px; }
+    flex: 0 0 100%;
+    margin: 30px; }
     @media (min-width: 768px) {
       .interactive-video__answer-item {
-        flex-shrink: 1; }
-        .interactive-video__answer-item:nth-child(n + 2) {
-          margin-top: 0; }
-        .interactive-video__answer-item:nth-last-child(n + 2) {
-          margin-right: 30px; } }
+        flex-shrink: 1; } }
   .interactive-video__inner {
     position: relative;
     background: rgba(30, 30, 30, 0.6);
     box-shadow: 2px 2px 10px rgba(30, 30, 30, 0.6);
     min-width: 100%; }
+    .interactive-video__inner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-image: url("https://raw.githubusercontent.com/bbrvi2008/interactive-video/maxsoft-video/src/img/background_2.jpg");
+      background-size: contain; }
     @media (orientation: portrait) and (max-width: 767px) {
       .interactive-video__inner:before {
         content: '';
@@ -501,6 +500,7 @@ h2 {
         top: 0;
         bottom: 0;
         background-color: #3b4256;
+        background-image: none;
         z-index: 10; } }
   .interactive-video__btn-play {
     position: absolute;
